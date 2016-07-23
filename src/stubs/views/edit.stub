@@ -1,12 +1,6 @@
-@extends('app')
-
-@section('content')
 
     {!! Form::open(['route' => ['((resource)).update', $((resource))->id], 'method' => 'post']) !!}
         @include('((resource)).partials.form', ['buttonText' => 'Update ((resource))'])
     {!! Form::close() !!}
 
     {{-- @include('errors.validation') --}}
-
-
-@stop

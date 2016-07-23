@@ -11,5 +11,5 @@
 		${{resource}} = {{model}}::findOrFail($id);
 		${{resource}}->delete();
 
-		return redirect('/{{resource}}');
+		return ${{resource}};
 	}

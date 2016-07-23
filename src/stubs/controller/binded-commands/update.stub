@@ -11,5 +11,5 @@
 	{
         ${{resource}}->update($request->all());
 
-        return redirect('/{{resource}}');
+        return ${{resource}};
 	}

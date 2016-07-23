@@ -8,7 +8,7 @@
 	 */
 	public function store({{model}}Request $request)
 	{
-		{{model}}::create($request->all());
+		${{resource}}={{model}}::create($request->all());
 
-		return redirect('/{{resource}}');
+		return ${{resource}};
 	}

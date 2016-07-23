@@ -12,5 +12,5 @@
         ${{resource}} = {{model}}::findOrFail($id);
         ${{resource}}->update($request->all());
 
-        return redirect('/{{resource}}');
+        return 1;
 	}

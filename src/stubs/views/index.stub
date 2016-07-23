@@ -1,10 +1,4 @@
-@extends('app')
-
-@section('content')
 
     @foreach($((resource_plural)) as $((resource)))
         {!! var_dump($((resource))) !!}
     @endforeach
-
-
-@stop

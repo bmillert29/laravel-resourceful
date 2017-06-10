@@ -1,4 +1,4 @@
-{
+c{
     "name": "remoblaser/resourceful",
     "description": "Create Migration, Seed, Request, Controller, Model and Views for your resource",
     "keywords": ["resource", "laravel", "artisan", "generator"],
@@ -10,9 +10,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "5.*",
-        "laracasts/generators": "~1.1"
+        "php": ">=5.6.4",
+        "illuminate/support": "5.4.*",
+        "laracasts/generators": "dev-master as 1.1.4"
     },
     "autoload": {
         "psr-4": {

@@ -1,5 +1,5 @@
 c{
-    "name": "remoblaser/resourceful",
+    "name": "jobcerto/resourceful",
     "description": "Create Migration, Seed, Request, Controller, Model and Views for your resource",
     "keywords": ["resource", "laravel", "artisan", "generator"],
     "license": "MIT",

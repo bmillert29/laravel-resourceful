@@ -9,11 +9,6 @@
             "email": "remo.blaser@gmail.com"
         }
     ],
-    "require": {
-        "php": ">=5.6.4",
-        "illuminate/support": "5.4.*",
-        "laracasts/generators": "dev-master as 1.1.4"
-    },
     "autoload": {
         "psr-4": {
             "Remoblaser\\Resourceful\\": "src/"

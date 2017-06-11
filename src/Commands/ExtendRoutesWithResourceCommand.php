@@ -65,7 +65,7 @@ class ExtendRoutesWithResourceCommand extends Command
 
     protected function getPath()
     {
-        return './app/Http/routes.php';
+        return './routes/web.php';
     }
 
     protected function getArguments()

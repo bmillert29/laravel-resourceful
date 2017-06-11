@@ -103,7 +103,7 @@ class ControllerMakeCommand extends Command
         $filledStub = str_replace('{{className}}', $controllerName, $stub);
         $filledStub = str_replace('{{rootNamespace}}', $this->getAppNamespace(), $filledStub);
         $filledStub = str_replace('{{namespace}}', $this->getDefaultNamespace(), $filledStub);
-        $filledStub = str_replace('{{model}}', ucfirst($model), $filledStub);
+        $filledStub = str_replace('{{model}}', str_singular(ucfirst($model)), $filledStub);
         $filledStub = str_replace('{{commands}}', $filledCommands, $filledStub);
 
         $this->files->put($path, $filledStub);

@@ -9,6 +9,9 @@
             "email": "remo.blaser@gmail.com"
         }
     ],
+    "require":{
+        "laracasts/generators": "*"
+    },
     "autoload": {
         "psr-4": {
             "Remoblaser\\Resourceful\\": "src/"

@@ -7,20 +7,40 @@ use Remoblaser\Resourceful\Traits\GeneratorTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class ResourceMakeCommand extends Command {
+class ResourceMakeCommand extends Command
+{
     use GeneratorTrait;
 
+    /**
+     * @var string
+     */
     protected $name = "make:resource";
 
+    /**
+     * @var string
+     */
     protected $description = "Create a new resource including model, migration, seed, controller, views";
 
-    protected $generators = ['migration', 'seed', 'model', 'controller', 'views'];
+    /**
+     * @var array
+     */
+    protected $generators = ['migration', 'model', 'controller', 'views'];
 
+    /**
+     * @var mixed
+     */
     protected $files;
 
+    /**
+     * @var mixed
+     */
     private $composer;
 
-    function __construct(Filesystem $files, Composer $composer)
+    /**
+     * @param Filesystem $files
+     * @param Composer $composer
+     */
+    public function __construct(Filesystem $files, Composer $composer)
     {
         parent::__construct();
 
@@ -32,18 +52,16 @@ class ResourceMakeCommand extends Command {
     {
         $this->makeResource();
 
-        if($this->option('bind')) {
+        if ($this->option('bind')) {
             $this->bindModelToRoute();
         }
-
     }
 
     protected function makeResource()
     {
         $includes = $this->includes();
 
-        foreach($includes as $include)
-        {
+        foreach ($includes as $include) {
             $callableMethod = "generate" . ucfirst($include);
             call_user_func([$this, $callableMethod]);
         }
@@ -54,17 +72,16 @@ class ResourceMakeCommand extends Command {
     protected function extendRoutes()
     {
         $this->call('route:extend', [
-            'name' => $this->name()
+            'name' => $this->name(),
         ]);
     }
-
 
     protected function bindModelToRoute()
     {
         $name = $this->argument('name');
 
         $this->call('route:bind', [
-            'name' => $name
+            'name' => $name,
         ]);
     }
 
@@ -75,18 +92,25 @@ class ResourceMakeCommand extends Command {
         return explode(',', $excludes);
     }
 
+    /**
+     * @return mixed
+     */
     protected function includes()
     {
         $includes = [];
-        foreach($this->generators as $generator)
-        {
-            if(!in_array($generator, $this->excludes()))
+
+        foreach ($this->generators as $generator) {
+            if ( ! in_array($generator, $this->excludes())) {
                 $includes[] = $generator;
+            }
         }
 
         return $includes;
     }
 
+    /**
+     * @return mixed
+     */
     protected function schema()
     {
         $schema = $this->option('schema');
@@ -94,6 +118,9 @@ class ResourceMakeCommand extends Command {
         return $schema ? $schema : false;
     }
 
+    /**
+     * @return mixed
+     */
     protected function name()
     {
         return $this->argument('name');
@@ -104,7 +131,6 @@ class ResourceMakeCommand extends Command {
         $name = $this->name();
         return "create_{$name}_table";
     }
-
 
     /**
      * Get the console command arguments.
@@ -117,6 +143,7 @@ class ResourceMakeCommand extends Command {
             ['name', InputArgument::REQUIRED, 'The name of the resource'],
         ];
     }
+
     /**
      * Get the console command options.
      *
@@ -128,7 +155,7 @@ class ResourceMakeCommand extends Command {
             ['bind', 'b', InputOption::VALUE_NONE, 'Bind model to route', null],
             ['exclude', 'e', InputOption::VALUE_OPTIONAL, 'Exclude Controller/Migration/Model/Views/Seed (comma seperated)', null],
             ['schema', 's', InputOption::VALUE_OPTIONAL, 'Optional schema to be attached to the migration', null],
-            ['commands', 'c', InputOption::VALUE_OPTIONAL, 'Optional commands (CRUD) for views and controller actions', null]
+            ['commands', 'c', InputOption::VALUE_OPTIONAL, 'Optional commands (CRUD) for views and controller actions', null],
         ];
     }
 }

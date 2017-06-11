@@ -1,6 +1,7 @@
 <?php namespace Remoblaser\Resourceful\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Remoblaser\Resourceful\Traits\SelectableCommandsTrait;
@@ -43,6 +44,11 @@ class ControllerMakeCommand extends Command
         parent::__construct();
         $this->files = $files;
         $this->composer = $composer;
+    }
+
+    protected function getAppNamespace()
+    {
+        return Container::getInstance()->getNamespace();
     }
 
     /**

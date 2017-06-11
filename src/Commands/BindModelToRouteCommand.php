@@ -1,6 +1,7 @@
 <?php namespace Remoblaser\Resourceful\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -33,6 +34,11 @@ class BindModelToRouteCommand extends Command
     {
         parent::__construct();
         $this->files = $files;
+    }
+
+    protected function getAppNamespace()
+    {
+        return Container::getInstance()->getNamespace();
     }
 
     public function fire()

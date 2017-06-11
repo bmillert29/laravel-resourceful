@@ -6,10 +6,9 @@
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy({{model}} ${{resource}})
 	{
-		${{resource}} = {{model}}::findOrFail($id);
 		${{resource}}->delete();
 
-		return ${{resource}};
+		return response()->json(['status' => 'true']);
 	}

@@ -128,7 +128,7 @@ class ResourceMakeCommand extends Command
 
     protected function migrationName()
     {
-        $name = $this->name();
+        $name = strtolower($this->name());
         return "create_{$name}_table";
     }
 

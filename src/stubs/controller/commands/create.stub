@@ -6,6 +6,7 @@
 	 * @return Response
 	 */
 	public function create()
-	{
-		return view('{{resource}}.create');
+	{	
+		${{resource}} = new {{model}};
+		return view('{{resource_plural}}.create', compact('{{resource}}'));
 	}

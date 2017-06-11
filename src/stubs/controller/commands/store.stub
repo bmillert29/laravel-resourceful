@@ -8,7 +8,7 @@
 	 */
 	public function store({{model}}Request $request)
 	{
-		${{resource}}={{model}}::create($request->all());
-
-		return ${{resource}};
+		${{resource}} = {{model}}::create($request->all());
+		flash('Item criado com sucesso', 'success');
+		return redirect()->route('{{resource_plural}}.index');
 	}

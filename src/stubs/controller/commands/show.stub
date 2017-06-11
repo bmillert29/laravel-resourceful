@@ -6,9 +6,7 @@
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show({{model}} ${{resource}})
 	{
-		${{resource}} = {{model}}::findOrFail($id);
-
-		return view('{{resource}}.show', compact('{{resource}}'));
+		return view('{{resource_plural}}.show', compact('{{resource}}'));
 	}

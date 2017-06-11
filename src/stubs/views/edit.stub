@@ -1,6 +1,6 @@
-<form class="card" method="POST" action="{{ route('((resource)).update', $((resource))) }}">
+<form class="card" method="POST" action="{{ route('((resource)).update', $((resource_singular))) }}">
 	<div class="card-heading">
-		<h2 class="card-title">Editar ((resource))</h2>
+		<h2 class="card-title">Editar ((resource_singular))</h2>
 	</div>
 	<div class="card-body row">
 		{{ csrf_field() }}

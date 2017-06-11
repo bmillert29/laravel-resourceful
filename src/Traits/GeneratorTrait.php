@@ -5,13 +5,13 @@ trait GeneratorTrait
 
     protected function generateMigration()
     {
-        if($this->schema()) {
+
+        if ($this->schema()) {
             $this->call('make:migration:schema', [
-                'name' => $this->name(),
-                '--schema' => $this->schema()
+                'name' => $this->migrationName(),
+                '--schema' => $this->schema(),
             ]);
-        }
-        else {
+        } else {
             $this->call('make:migration', [
                 'name' => $this->migrationName(),
             ]);
@@ -21,17 +21,16 @@ trait GeneratorTrait
     protected function generateSeed()
     {
         $this->call('make:seed', [
-            'name' => $this->name()
+            'name' => $this->name(),
         ]);
     }
 
     protected function generateModel()
     {
         $this->call('make:model', [
-            'name' => ucfirst($this->name()),
+            'name' => ucfirst(str_singular($this->name())),
         ]);
     }
-
 
     protected function generateController()
     {
@@ -39,7 +38,7 @@ trait GeneratorTrait
         $commands = $this->option('commands');
 
         $this->call('make:request', [
-            'name' => $this->requestName($name)
+            'name' => $this->requestName(str_singular($name)),
         ]);
 
         $bind = $this->option('bind');
@@ -56,22 +55,21 @@ trait GeneratorTrait
         $name = $this->argument('name');
         $commands = $this->option('commands');
 
-        if($commands) {
+        if ($commands) {
             $this->call('make:resource:views', [
                 'name' => $name,
-                '--commands' => $commands
+                '--commands' => $commands,
             ]);
-        }
-        else {
+        } else {
             $this->call('make:resource:views', [
-                'name' => $name
+                'name' => $name,
             ]);
         }
     }
 
-
-
-
+    /**
+     * @param $name
+     */
     protected function requestName($name)
     {
         return ucfirst($name) . "Request";

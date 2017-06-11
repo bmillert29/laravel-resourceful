@@ -2,11 +2,12 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Remoblaser\Resourceful\Traits\SelectableCommandsTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Remoblaser\Resourceful\Traits\SelectableCommandsTrait;
 
-class ViewsMakeCommand extends Command {
+class ViewsMakeCommand extends Command
+{
     use SelectableCommandsTrait;
 
     /**
@@ -23,27 +24,37 @@ class ViewsMakeCommand extends Command {
      */
     protected $description = "Create views for a resource";
 
+    /**
+     * @var mixed
+     */
     protected $files;
 
-    function __construct(Filesystem $files)
+    /**
+     * @param Filesystem $files
+     */
+    public function __construct(Filesystem $files)
     {
         parent::__construct();
         $this->files = $files;
     }
 
+    /**
+     * @return mixed
+     */
     public function fire()
     {
         $name = strtolower($this->argument('name'));
-        if ($this->files->exists($path = $this->getPath($name)))
-        {
-            return $this->error($name .' views already exist!');
+
+        if ($this->files->exists($path = $this->getPath($name))) {
+            return $this->error($name . ' views already exist!');
         }
+
         $this->makeDirectory($path);
 
         $commands = $this->option('commands');
         $views = $this->parseViewCommands($commands);
 
-        foreach($views as $view) {
+        foreach ($views as $view) {
             $this->createView($view, $path, $name);
         }
 
@@ -54,32 +65,41 @@ class ViewsMakeCommand extends Command {
         $this->info('Views created successfully.');
     }
 
+    /**
+     * @param $viewName
+     * @param $path
+     * @param $resource
+     */
     protected function createView($viewName, $path, $resource)
     {
         $path .= '/' . $viewName . '.blade.php';
 
-        $stub = $this->files->get(__DIR__.'/../stubs/views/'.$viewName.'.stub');
+        $stub = $this->files->get(__DIR__ . '/../stubs/views/' . $viewName . '.stub');
         $filledStub = str_replace('((resource))', $resource, $stub);
         $filledStub = str_replace('((resource_plural))', str_plural($resource), $filledStub);
+        $filledStub = str_replace('((resource_singular))', str_singular($resource), $filledStub);
         $this->makeDirectory($path);
         $this->files->put($path, $filledStub);
     }
 
-
-
+    /**
+     * @param $name
+     */
     protected function getPath($name)
     {
         return './resources/views/' . $name;
     }
 
+    /**
+     * @param $path
+     */
     protected function makeDirectory($path)
     {
-        if ( ! $this->files->isDirectory(dirname($path)))
-        {
+
+        if ( ! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
     }
-
 
     protected function getArguments()
     {
@@ -96,10 +116,7 @@ class ViewsMakeCommand extends Command {
     protected function getOptions()
     {
         return [
-            ['commands', 'c', InputOption::VALUE_OPTIONAL, 'Optional commands (CRUD)', null]
+            ['commands', 'c', InputOption::VALUE_OPTIONAL, 'Optional commands (CRUD)', null],
         ];
     }
-
-
-
 }

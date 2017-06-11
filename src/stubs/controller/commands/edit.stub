@@ -6,9 +6,7 @@
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit({{model}} ${{resource}})
 	{
-		${{resource}} = {{model}}::findOrFail($id);
-
-        return view('{{resource}}.edit', compact('{{resource}}'));
+        return view('{{resource_plural}}.edit', compact('{{resource}}'));
 	}

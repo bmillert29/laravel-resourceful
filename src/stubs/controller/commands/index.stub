@@ -8,5 +8,5 @@
 	public function index()
 	{
 	    ${{resource_plural}} = {{model}}::all();
-		return view('{{resource}}.index', compact('{{resource_plural}}'));
+		return view('{{resource_plural}}.index', compact('{{resource_plural}}'));
 	}

@@ -1,4 +1,42 @@
+@extends('app') 
+@section('content')
+<div class="card">
+    <div class="card-heading">
+        <h2 class="card-title">((resource))</h2>
+        <ul class="card-actions right-top m-t-n-10">
+        	<li>
+        		<a href="{{ route('((resource)).create') }}" class="btn btn-sm bnt-flat"><i class="fa fa-plus"></i> Adicionar</a>
+        	</li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($((resource)) as $((resource_singular)))
+                <tr>
+                    <td>#</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ route('((resource)).edit', $((resource_singular))) }}"  class="font-size-18 m-r-10"><i class="zmdi zmdi-edit"></i></a>
+                            <a href="{{ route('((resource)).destroy',$((resource_singular))) }}" data-method="destroy" class="font-size-18"> <i class="zmdi zmdi-delete"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
 
-    @foreach($((resource_plural)) as $((resource)))
-        {!! var_dump($((resource))) !!}
-    @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@stop
+
+
+

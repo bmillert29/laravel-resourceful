@@ -1,3 +1,7 @@
+@extends('app')
+
+@section('content')
+
 <form class="card" method="POST" action="{{ route('((resource)).update', $((resource_singular))) }}">
 	<div class="card-heading">
 		<h2 class="card-title">Editar ((resource_singular))</h2>
@@ -18,3 +22,5 @@
 		</ul>
 	</div>
 </form>
+
+@stop

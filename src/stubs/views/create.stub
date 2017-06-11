@@ -1,3 +1,7 @@
+@extends('a')
+
+@section('content')
+
 <form class="card" method="POST" action="{{ route('((resource)).store') }}">
 	<div class="card-heading">
 		<h2 class="card-title">Cadastrar ((resource))</h2>
@@ -17,3 +21,7 @@
 		</ul>
 	</div>
 </form>
+
+
+
+@stop

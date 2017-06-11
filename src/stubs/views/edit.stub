@@ -1,6 +1,20 @@
-
-    {!! Form::open(['route' => ['((resource)).update', $((resource))->id], 'method' => 'post']) !!}
-        @include('((resource)).partials.form', ['buttonText' => 'Update ((resource))'])
-    {!! Form::close() !!}
-
-    {{-- @include('errors.validation') --}}
+<form class="card" method="POST" action="{{ route('((resource)).update', $((resource))) }}">
+	<div class="card-heading">
+		<h2 class="card-title">Editar ((resource))</h2>
+	</div>
+	<div class="card-body row">
+		{{ csrf_field() }}
+		{{ method_field('PUT') }}
+		@include('((resource)).partials.form')
+	</div>
+	<div class="card-footer">
+		<ul class="card-actions right-bottom">
+			<li>
+				<a  href="{{ \URL::previous() }}" class="btn btn-danger btn-flat">Cancelar</a>
+			</li>
+			<li>
+				<button  type="submit" class="btn btn-info btn-flat">Salvar</button>
+			</li>
+		</ul>
+	</div>
+</form>

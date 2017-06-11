@@ -1,12 +1,11 @@
 <?php namespace Remoblaser\Resourceful\Commands;
 
-use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
 
-class BindModelToRouteCommand extends Command {
-    use AppNamespaceDetectorTrait;
+class BindModelToRouteCommand extends Command
+{
 
     /**
      * The console command name.
@@ -22,10 +21,15 @@ class BindModelToRouteCommand extends Command {
      */
     protected $description = "Bind a route to a Model";
 
-
+    /**
+     * @var mixed
+     */
     protected $files;
 
-    function __construct(Filesystem $files)
+    /**
+     * @param Filesystem $files
+     */
+    public function __construct(Filesystem $files)
     {
         parent::__construct();
         $this->files = $files;
@@ -40,13 +44,17 @@ class BindModelToRouteCommand extends Command {
         $this->info('Route successfully binded to Model.');
     }
 
+    /**
+     * @param $name
+     */
     protected function bindModelToRoute($name)
     {
         $routeServiceProvider = "";
 
-        $routeServiceProviderPath =  base_path() . "/app/Providers/RouteServiceProvider.php";
-        foreach(file($routeServiceProviderPath) as $line) {
-            if(trim(preg_replace('/\t+/', '', $line)) == 'parent::boot($router);') {
+        $routeServiceProviderPath = base_path() . "/app/Providers/RouteServiceProvider.php";
+
+        foreach (file($routeServiceProviderPath) as $line) {
+            if (trim(preg_replace('/\t+/', '', $line)) == 'parent::boot($router);') {
                 $line .= $this->getBindCommand($name);
             }
 
@@ -56,16 +64,19 @@ class BindModelToRouteCommand extends Command {
         $this->files->put($routeServiceProviderPath, $routeServiceProvider);
     }
 
+    /**
+     * @param $name
+     */
     private function getBindCommand($name)
     {
         $name = ucfirst($name);
-        return "\t\t" . '$router->model(' . "'" . $name . "'" . ", '" . $this->getAppNamespace() . '\\' . $name . "');". PHP_EOL;
+        return "\t\t" . '$router->model(' . "'" . $name . "'" . ", '" . $this->getAppNamespace() . '\\' . $name . "');" . PHP_EOL;
     }
 
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the Resource to bind']
+            ['name', InputArgument::REQUIRED, 'The name of the Resource to bind'],
         ];
     }
-} 
+}

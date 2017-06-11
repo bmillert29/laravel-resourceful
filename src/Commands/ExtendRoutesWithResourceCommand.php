@@ -1,12 +1,12 @@
 <?php namespace Remoblaser\Resourceful\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\Console\AppNamespaceDetectorTrait;
 
-class ExtendRoutesWithResourceCommand extends Command{
-    use AppNamespaceDetectorTrait;
+class ExtendRoutesWithResourceCommand extends Command
+{
 
     /**
      * The console command name.
@@ -22,10 +22,15 @@ class ExtendRoutesWithResourceCommand extends Command{
      */
     protected $description = "Extend your routes with a resource";
 
-
+    /**
+     * @var mixed
+     */
     protected $files;
 
-    function __construct(Filesystem $files)
+    /**
+     * @param Filesystem $files
+     */
+    public function __construct(Filesystem $files)
     {
         parent::__construct();
         $this->files = $files;
@@ -37,9 +42,9 @@ class ExtendRoutesWithResourceCommand extends Command{
 
         $routes = $this->files->get($this->getPath());
 
-        $stub = $this->files->get(__DIR__.'/../stubs/route.stub');
+        $stub = $this->files->get(__DIR__ . '/../stubs/route.stub');
 
-        $filledStub = str_replace('{{resource}}', strtolower($name),  $stub);
+        $filledStub = str_replace('{{resource}}', strtolower($name), $stub);
         $filledStub = str_replace('{{controller}}', $this->getControllerName($name), $filledStub);
 
         $routes .= $filledStub;
@@ -50,6 +55,9 @@ class ExtendRoutesWithResourceCommand extends Command{
 
     }
 
+    /**
+     * @param $resource
+     */
     protected function getControllerName($resource)
     {
         return ucfirst($resource) . 'Controller';
@@ -60,11 +68,10 @@ class ExtendRoutesWithResourceCommand extends Command{
         return './app/Http/routes.php';
     }
 
-
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the Resource']
+            ['name', InputArgument::REQUIRED, 'The name of the Resource'],
         ];
     }
-} 
+}

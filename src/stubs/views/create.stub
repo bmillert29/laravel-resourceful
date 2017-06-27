@@ -1,24 +1,17 @@
-@extends('a')
+@extends('app')
 
 @section('content')
-
-<form class="card" method="POST" action="{{ route('((resource)).store') }}">
-	<div class="card-heading">
-		<h2 class="card-title">Cadastrar ((resource))</h2>
+<form class="panel panel-default" method="POST" action="{{ route('((resource)).store') }}">
+	<div class="panel-heading">
+		<h3 class="panel-title">Cadastrar ((resource))</h3>
 	</div>
-	<div class="card-body row">
+	<div class="panel-body row">
 		{{ csrf_field() }}
 		@include('((resource)).partials.form')
 	</div>
-	<div class="card-footer">
-		<ul class="card-actions right-bottom">
-			<li>
-				<a  href="{{ \URL::previous() }}" class="btn btn-danger btn-flat">Cancelar</a>
-			</li>
-			<li>
-				<button  type="submit" class="btn btn-info btn-flat">Salvar</button>
-			</li>
-		</ul>
+	<div class="panel-footer">
+				<a  href="{{ \URL::previous() }}" class="btn btn-danger">Cancelar</a>
+				<button  type="submit" class="btn btn-info">Salvar</button>
 	</div>
 </form>
 

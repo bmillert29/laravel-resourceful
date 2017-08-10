@@ -5,13 +5,13 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Remo Blaser",
-            "email": "remo.blaser@gmail.com"
-        },
-        {
             "name": "Ben Miller",
             "email": "nowendwell@gmail.com"
-        }
+        },
+        {
+            "name": "Remo Blaser",
+            "email": "remo.blaser@gmail.com"
+        }        
     ],
     "require":{
         "laracasts/generators": "*"

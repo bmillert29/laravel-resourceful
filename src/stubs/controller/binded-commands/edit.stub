@@ -3,10 +3,10 @@
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  {{model}}  ${{resource}}
+	 * @param  {{ model }}  ${{ resource }}
 	 * @return Response
 	 */
-	public function edit({{model}} ${{resource}})
+	public function edit({{ model }} ${{ resource }})
 	{
-        return view('{{resource}}.edit', compact('{{resource}}'));
+        return view( '{{ resource_plural }}.edit', compact( '{{ resource }}' ) );
 	}

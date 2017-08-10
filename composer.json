@@ -1,5 +1,5 @@
 {
-    "name": "jobcerto/resourceful",
+    "name": "nowendwell/laravel-resourceful",
     "description": "Create Migration, Seed, Request, Controller, Model and Views for your resource",
     "keywords": ["resource", "laravel", "artisan", "generator"],
     "license": "MIT",
@@ -7,6 +7,10 @@
         {
             "name": "Remo Blaser",
             "email": "remo.blaser@gmail.com"
+        },
+        {
+            "name": "Ben Miller",
+            "email": "nowendwell@gmail.com"
         }
     ],
     "require":{
@@ -14,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Remoblaser\\Resourceful\\": "src/"
+            "Nowendwell\\Resourceful\\": "src/"
         }
     }
 }

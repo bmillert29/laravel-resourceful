@@ -1,9 +1,11 @@
-<?php namespace Remoblaser\Resourceful\Commands;
+<?php
+
+namespace Remoblaser\Resourceful\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
-use Remoblaser\Resourceful\Traits\SelectableCommandsTrait;
+use Nowendwell\Resourceful\Traits\SelectableCommandsTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -52,55 +54,58 @@ class ControllerMakeCommand extends Command
     {
         $name = $this->parseControllerName();
 
-        if ($this->files->exists($path = $this->getPath($name))) {
-            return $this->error($name . ' already exists!');
+        if ( $this->files->exists( $path = $this->getPath( $name ) ) )
+        {
+            return $this->error( $name . ' already exists!' );
         }
 
-        $this->makeDirectory($path);
+        $this->makeDirectory( $path );
 
-        $this->createController($path, $name);
+        $this->createController( $path, $name );
 
         $this->composer->dumpAutoloads();
 
-        $this->info('Controller created successfully.');
+        $this->info( 'Controller created successfully.' );
     }
 
     protected function parseControllerName()
     {
-        $name = strtolower($this->argument('name'));
+        $name = strtolower( $this->argument( 'name' ) );
 
-        if (ends_with($name, 'controller')) {
-            return ucwords($name);
+        if ( ends_with( $name, 'controller' ) )
+        {
+            return ucwords( $name );
         }
 
-        return ucwords($name) . "Controller";
+        return ucwords( $name ) . "Controller";
     }
 
     /**
      * @param $path
      * @param $controllerName
      */
-    protected function createController($path, $controllerName)
+    protected function createController( $path, $controllerName )
     {
         $filledCommands = "";
 
-        $commands = $this->parseCommands($this->option('commands'));
+        $commands = $this->parseCommands( $this->option( 'commands' ) );
 
         $model = $this->parseModelName();
 
-        foreach ($commands as $command) {
-            $filledCommands .= $this->createCommand($command, $model);
+        foreach ( $commands as $command )
+        {
+            $filledCommands .= $this->createCommand( $command, $model );
         }
 
-        $stub = $this->files->get(__DIR__ . '/../stubs/controller/controller.stub');
+        $stub = $this->files->get( __DIR__ . '/../stubs/controller/controller.stub' );
 
-        $filledStub = str_replace('{{className}}', $controllerName, $stub);
-        $filledStub = str_replace('{{rootNamespace}}', $this->getAppNamespace(), $filledStub);
-        $filledStub = str_replace('{{namespace}}', $this->getDefaultNamespace(), $filledStub);
-        $filledStub = str_replace('{{model}}', ucfirst($model), $filledStub);
-        $filledStub = str_replace('{{commands}}', $filledCommands, $filledStub);
+        $filledStub = str_replace( '{{ className }}', $controllerName, $stub );
+        $filledStub = str_replace( '{{ rootNamespace }}', $this->getAppNamespace(), $filledStub );
+        $filledStub = str_replace( '{{ namespace }}', $this->getDefaultNamespace(), $filledStub );
+        $filledStub = str_replace( '{{ model }}', ucfirst($model), $filledStub );
+        $filledStub = str_replace( '{{ commands }}', $filledCommands, $filledStub );
 
-        $this->files->put($path, $filledStub);
+        $this->files->put( $path, $filledStub );
     }
 
     /**
@@ -108,14 +113,14 @@ class ControllerMakeCommand extends Command
      * @param $model
      * @return mixed
      */
-    protected function createCommand($commandName, $model)
+    protected function createCommand( $commandName, $model )
     {
         $stubPath = $this->getStubRoot();
-        $stub = $this->files->get($stubPath . $commandName . '.stub');
+        $stub = $this->files->get( $stubPath . $commandName . '.stub' );
 
-        $filledStub = str_replace('{{resource}}', $model, $stub);
-        $filledStub = str_replace('{{resource_plural}}', str_plural($model), $filledStub);
-        $filledStub = str_replace('{{model}}', ucfirst($model), $filledStub);
+        $filledStub = str_replace('{{ resource }}', $model, $stub );
+        $filledStub = str_replace('{{ resource_plural }}', str_plural( $model ), $filledStub );
+        $filledStub = str_replace('{{ model }}', ucfirst( $model ), $filledStub );
 
         return $filledStub;
     }
@@ -123,7 +128,8 @@ class ControllerMakeCommand extends Command
     private function getStubRoot()
     {
 
-        if ($this->option('bind')) {
+        if ( $this->option( 'bind' ) )
+        {
             return __DIR__ . '/../stubs/controller/binded-commands/';
         }
 
@@ -135,13 +141,14 @@ class ControllerMakeCommand extends Command
      */
     protected function parseModelName()
     {
-        $model = strtolower($this->argument('name'));
+        $model = strtolower( $this->argument( 'name' ) );
 
-        if ( ! ends_with($model, 'controller')) {
+        if ( ! ends_with( $model, 'controller' ) )
+        {
             return $model;
         }
 
-        return str_replace('controller', '', $model);
+        return str_replace( 'controller', '', $model );
     }
 
     /**
@@ -155,7 +162,7 @@ class ControllerMakeCommand extends Command
     /**
      * @param $name
      */
-    protected function getPath($name)
+    protected function getPath( $name )
     {
         return './app/Http/Controllers/' . $name . '.php';
     }
@@ -166,8 +173,9 @@ class ControllerMakeCommand extends Command
     protected function makeDirectory($path)
     {
 
-        if ( ! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
+        if ( ! $this->files->isDirectory( dirname( $path ) ) )
+        {
+            $this->files->makeDirectory( dirname( $path ), 0777, true, true );
         }
     }
 

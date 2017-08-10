@@ -1,4 +1,6 @@
-<?php namespace Remoblaser\Resourceful\Commands;
+<?php
+
+namespace Nowendwell\Resourceful\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
@@ -44,8 +46,8 @@ class ExtendRoutesWithResourceCommand extends Command
 
         $stub = $this->files->get(__DIR__ . '/../stubs/route.stub');
 
-        $filledStub = str_replace('{{resource}}', strtolower($name), $stub);
-        $filledStub = str_replace('{{controller}}', $this->getControllerName($name), $filledStub);
+        $filledStub = str_replace('{{ resource }}', strtolower($name), $stub);
+        $filledStub = str_replace('{{ controller }}', $this->getControllerName($name), $filledStub);
 
         $routes .= $filledStub;
 
@@ -65,7 +67,7 @@ class ExtendRoutesWithResourceCommand extends Command
 
     protected function getPath()
     {
-        return './app/Http/routes.php';
+        return './routes/web.php';
     }
 
     protected function getArguments()

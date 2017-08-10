@@ -1,6 +1,15 @@
+<form action="{{ route( '(( resource )).update', $(( resource )) ) }}" method="post">
 
-    {!! Form::open(['route' => ['((resource)).update', $((resource))->id], 'method' => 'post']) !!}
-        @include('((resource)).partials.form', ['buttonText' => 'Update ((resource))'])
-    {!! Form::close() !!}
+	{{ csrf_field() }}
+    {{ method_field('PUT') }}
 
-    {{-- @include('errors.validation') --}}
+	<div class="form-group">
+		<label>Field</label>
+		<input type="text" name="" id="" value="{{ $(( resource ))->id }}" class="form-control">
+	</div>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</div>
+
+</form>

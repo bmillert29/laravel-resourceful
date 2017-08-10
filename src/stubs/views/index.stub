@@ -1,4 +1,4 @@
 
-    @foreach($((resource_plural)) as $((resource)))
-        {!! var_dump($((resource))) !!}
+    @foreach( $(( resource_plural )) as $(( resource )) )
+        {!! var_dump( $((resource)) ) !!}
     @endforeach

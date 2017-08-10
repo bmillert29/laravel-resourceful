@@ -1,4 +1,6 @@
-<?php namespace Remoblaser\Resourceful;
+<?php
+
+namespace Nowendwell\Resourceful;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -27,47 +29,51 @@ class ResourcefulServiceProvider extends ServiceProvider {
 
     private function registerGeneratorCommand()
     {
-        $this->app->singleton('command.remoblaser.resource', function($app) {
-            return $app['Remoblaser\Resourceful\Commands\ResourceMakeCommand'];
+        $this->app->singleton( 'command.nowendwell.resource', function( $app )
+		{
+            return $app['Nowendwell\Resourceful\Commands\ResourceMakeCommand'];
         });
 
-        $this->commands('command.remoblaser.resource');
+        $this->commands( 'command.nowendwell.resource' );
     }
 
     private function registerViewsCommand()
     {
-        $this->app->singleton('command.remoblaser.views', function($app) {
-            return $app['Remoblaser\Resourceful\Commands\ViewsMakeCommand'];
+        $this->app->singleton('command.nowendwell.views', function($app) {
+            return $app['Nowendwell\Resourceful\Commands\ViewsMakeCommand'];
         });
 
-        $this->commands('command.remoblaser.views');
+        $this->commands( 'command.nowendwell.views' );
     }
 
     private function registerExtendRoutesCommand()
     {
-        $this->app->singleton('command.remoblaser.extendroutes', function($app) {
-            return $app['Remoblaser\Resourceful\Commands\ExtendRoutesWithResourceCommand'];
+        $this->app->singleton( 'command.nowendwell.extendroutes', function($app)
+		{
+            return $app['Nowendwell\Resourceful\Commands\ExtendRoutesWithResourceCommand'];
         });
 
-        $this->commands('command.remoblaser.extendroutes');
+        $this->commands( 'command.nowendwell.extendroutes' );
     }
 
     private function registerControllerCommand()
     {
-        $this->app->singleton('command.remoblaser.controller', function($app) {
-            return $app['Remoblaser\Resourceful\Commands\ControllerMakeCommand'];
+        $this->app->singleton( 'command.nowendwell.controller', function($app)
+		{
+            return $app['Nowendwell\Resourceful\Commands\ControllerMakeCommand'];
         });
 
-        $this->commands('command.remoblaser.controller');
+        $this->commands( 'command.nowendwell.controller' );
     }
 
     private function registerBindModelToRouteCommand()
     {
-        $this->app->singleton('command.remoblaser.bindmodel', function($app) {
-            return $app['Remoblaser\Resourceful\Commands\BindModelToRouteCommand'];
+        $this->app->singleton('command.nowendwell.bindmodel', function($app)
+		{
+            return $app['Nowendwell\Resourceful\Commands\BindModelToRouteCommand'];
         });
 
-        $this->commands('command.remoblaser.bindmodel');
+        $this->commands( 'command.nowendwell.bindmodel' );
     }
 
 }

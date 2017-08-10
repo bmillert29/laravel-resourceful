@@ -3,10 +3,10 @@
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  {{model}}  ${{resource}}
+	 * @param  {{ model }}  ${{ resource }}
 	 * @return Response
 	 */
-	public function show({{model}} ${{resource}})
+	public function show({{ model }} ${{ resource }})
 	{
-		return view('{{resource}}.show', compact('{{resource}}'));
+		return view( '{{ resource_plural }}.show', compact( '{{ resource }}' ) );
 	}

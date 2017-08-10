@@ -1,18 +1,22 @@
-<?php namespace Remoblaser\Resourceful\Traits;
+<?php
+
+namespace Nowendwell\Resourceful\Traits;
 
 trait GeneratorTrait
 {
 
     protected function generateMigration()
     {
-        if($this->schema()) {
-            $this->call('make:migration:schema', [
-                'name' => $this->name(),
+        if( $this->schema() )
+        {
+            $this->call( 'make:migration:schema', [
+                'name'     => $this->name(),
                 '--schema' => $this->schema()
             ]);
         }
-        else {
-            $this->call('make:migration', [
+        else
+        {
+            $this->call( 'make:migration', [
                 'name' => $this->migrationName(),
             ]);
         }
@@ -20,14 +24,14 @@ trait GeneratorTrait
 
     protected function generateSeed()
     {
-        $this->call('make:seed', [
+        $this->call( 'make:seed', [
             'name' => $this->name()
         ]);
     }
 
     protected function generateModel()
     {
-        $this->call('make:model', [
+        $this->call( 'make:model', [
             'name' => ucfirst($this->name()),
         ]);
     }
@@ -35,45 +39,44 @@ trait GeneratorTrait
 
     protected function generateController()
     {
-        $name = $this->argument('name');
-        $commands = $this->option('commands');
+        $name = $this->argument( 'name' );
+        $commands = $this->option( 'commands' );
 
-        $this->call('make:request', [
+        $this->call( 'make:request', [
             'name' => $this->requestName($name)
         ]);
 
-        $bind = $this->option('bind');
+        $bind = $this->option( 'bind' );
 
-        $this->call('make:resource:controller', [
-            'name' => $name,
+        $this->call( 'make:resource:controller', [
+            'name'       => $name,
             '--commands' => $commands,
-            '--bind' => $bind,
+            '--bind'     => $bind,
         ]);
     }
 
     protected function generateViews()
     {
-        $name = $this->argument('name');
-        $commands = $this->option('commands');
+        $name = $this->argument( 'name' );
+        $commands = $this->option( 'commands' );
 
-        if($commands) {
-            $this->call('make:resource:views', [
-                'name' => $name,
+        if( $commands )
+        {
+            $this->call( 'make:resource:views', [
+                'name'       => $name,
                 '--commands' => $commands
             ]);
         }
-        else {
-            $this->call('make:resource:views', [
+        else
+        {
+            $this->call( 'make:resource:views', [
                 'name' => $name
             ]);
         }
     }
 
-
-
-
-    protected function requestName($name)
+    protected function requestName( $name )
     {
-        return ucfirst($name) . "Request";
+        return ucfirst( $name ) . "Request";
     }
 }

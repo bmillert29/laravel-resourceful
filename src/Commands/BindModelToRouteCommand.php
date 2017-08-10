@@ -1,4 +1,6 @@
-<?php namespace Remoblaser\Resourceful\Commands;
+<?php
+
+namespace Nowendwell\Resourceful\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -37,39 +39,41 @@ class BindModelToRouteCommand extends Command
 
     public function fire()
     {
-        $name = $this->argument('name');
+        $name = $this->argument( 'name' );
 
-        $this->bindModelToRoute($name);
+        $this->bindModelToRoute( $name );
 
-        $this->info('Route successfully binded to Model.');
+        $this->info( 'Route successfully binded to Model.' );
     }
 
     /**
      * @param $name
      */
-    protected function bindModelToRoute($name)
+    protected function bindModelToRoute( $name )
     {
         $routeServiceProvider = "";
 
         $routeServiceProviderPath = base_path() . "/app/Providers/RouteServiceProvider.php";
 
-        foreach (file($routeServiceProviderPath) as $line) {
-            if (trim(preg_replace('/\t+/', '', $line)) == 'parent::boot($router);') {
-                $line .= $this->getBindCommand($name);
+        foreach( file( $routeServiceProviderPath ) as $line )
+        {
+            if ( trim( preg_replace( '/\t+/', '', $line ) ) == 'parent::boot($router);' )
+            {
+                $line .= $this->getBindCommand( $name );
             }
 
             $routeServiceProvider .= $line;
         }
 
-        $this->files->put($routeServiceProviderPath, $routeServiceProvider);
+        $this->files->put( $routeServiceProviderPath, $routeServiceProvider );
     }
 
     /**
      * @param $name
      */
-    private function getBindCommand($name)
+    private function getBindCommand( $name )
     {
-        $name = ucfirst($name);
+        $name = ucfirst( $name );
         return "\t\t" . '$router->model(' . "'" . $name . "'" . ", '" . $this->getAppNamespace() . '\\' . $name . "');" . PHP_EOL;
     }
 

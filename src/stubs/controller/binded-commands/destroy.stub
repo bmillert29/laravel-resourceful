@@ -3,12 +3,12 @@
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  {{model}}  ${{resource}}
+	 * @param  {{ model }}  ${{ resource }}
 	 * @return Response
 	 */
-	public function destroy({{model}} ${{resource}})
+	public function destroy({{ model }} ${{ resource }})
 	{
-		${{resource}}->destroy();
+		${{ resource }}->destroy();
 
-		return 1;
+		return redirect()->route( '{{ resource_plural }}.index' );
 	}

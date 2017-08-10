@@ -7,6 +7,6 @@
 	 */
 	public function index()
 	{
-	    ${{resource_plural}} = {{model}}::all();
-		return view('{{resource}}.index', compact('{{resource_plural}}'));
+	    ${{ resource_plural }} = {{ model }}::all();
+		return view( '{{ resource_plural }}.index', compact( '{{ resource_plural }}' ) );
 	}

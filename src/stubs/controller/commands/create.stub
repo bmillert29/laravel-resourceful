@@ -7,5 +7,5 @@
 	 */
 	public function create()
 	{
-		return view('{{resource}}.create');
+		return view( '{{ resource_plural }}.create' );
 	}

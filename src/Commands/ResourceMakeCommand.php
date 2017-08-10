@@ -3,7 +3,7 @@
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
-use Remoblaser\Resourceful\Traits\GeneratorTrait;
+use Nowendwell\Resourceful\Traits\GeneratorTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -32,7 +32,8 @@ class ResourceMakeCommand extends Command {
     {
         $this->makeResource();
 
-        if($this->option('bind')) {
+        if( $this->option( 'bind' ) )
+        {
             $this->bindModelToRoute();
         }
 
@@ -42,10 +43,10 @@ class ResourceMakeCommand extends Command {
     {
         $includes = $this->includes();
 
-        foreach($includes as $include)
+        foreach( $includes as $include )
         {
-            $callableMethod = "generate" . ucfirst($include);
-            call_user_func([$this, $callableMethod]);
+            $callableMethod = "generate" . ucfirst( $include );
+            call_user_func( [ $this, $callableMethod ] );
         }
 
         $this->extendRoutes();
@@ -53,7 +54,7 @@ class ResourceMakeCommand extends Command {
 
     protected function extendRoutes()
     {
-        $this->call('route:extend', [
+        $this->call( 'route:extend', [
             'name' => $this->name()
         ]);
     }
@@ -61,7 +62,7 @@ class ResourceMakeCommand extends Command {
 
     protected function bindModelToRoute()
     {
-        $name = $this->argument('name');
+        $name = $this->argument( 'name' );
 
         $this->call('route:bind', [
             'name' => $name
@@ -70,7 +71,7 @@ class ResourceMakeCommand extends Command {
 
     protected function excludes()
     {
-        $excludes = $this->option('exclude');
+        $excludes = $this->option( 'exclude' );
 
         return explode(',', $excludes);
     }
@@ -78,10 +79,12 @@ class ResourceMakeCommand extends Command {
     protected function includes()
     {
         $includes = [];
-        foreach($this->generators as $generator)
+        foreach( $this->generators as $generator )
         {
-            if(!in_array($generator, $this->excludes()))
+            if( ! in_array( $generator, $this->excludes() ) )
+            {
                 $includes[] = $generator;
+            }
         }
 
         return $includes;
@@ -89,14 +92,14 @@ class ResourceMakeCommand extends Command {
 
     protected function schema()
     {
-        $schema = $this->option('schema');
+        $schema = $this->option( 'schema' );
 
         return $schema ? $schema : false;
     }
 
     protected function name()
     {
-        return $this->argument('name');
+        return $this->argument( 'name' );
     }
 
     protected function migrationName()

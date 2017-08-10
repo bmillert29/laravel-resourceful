@@ -3,12 +3,12 @@
     /**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  {{model}}Request $request
+	 * @param  {{ model }}Request $request
 	 * @return Response
 	 */
-	public function store({{model}}Request $request)
+	public function store({{ model }}Request $request)
 	{
-		${{resource}}={{model}}::create($request->all());
+		${{ resource }} = {{ model }}::create( $request->all() );
 
-		return ${{resource}};
+		return redirect()->route( '{{ resource_plural }}.index' );
 	}

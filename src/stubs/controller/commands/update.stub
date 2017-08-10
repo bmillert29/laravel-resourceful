@@ -3,14 +3,13 @@
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
-	 * @param  {{model}}Request $request
+	 * @param  {{ model }}  ${{ resource }}
+	 * @param  {{ model }}Request $request
 	 * @return Response
 	 */
-	public function update({{model}}Request $request, $id)
+	public function update({{ model }}Request $request, {{ model }} ${{ resource }})
 	{
-        ${{resource}} = {{model}}::findOrFail($id);
-        ${{resource}}->update($request->all());
+        ${{ resource }}->update( $request->all() );
 
-        return 1;
+        return redirect()->route( '{{ resource_plural }}.show', ${{ resource }} );
 	}

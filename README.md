@@ -45,6 +45,8 @@ public function register()
 Now you can use the command. I've extracted everything in single commands so you're able to use the `make:resource:controller` command if you would like to create only the Controllers the resourceful way.
 The `make:resource:views` command is seperate too, so feel free to use this one aswell.
 With the `route:extend` command, you're able to extend your routes.php file with a resource controller.
+The new command `route:bind` binds a route to your model. 
+With the -b option, you can do this automatically when generating a resource.
 If you want to see all the options, use `make:resource -h`.
 
 ##Example

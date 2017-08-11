@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Nowendwell\\Resourceful\\": "src/"
+            "Nowendwell\\LaravelResourceful\\": "src/"
         }
     }
 }
